@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.barbosa.myapplication.Activitys.CadastroActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <android.support.v7.widget.Toolbar
+            android:id='@+id/tb_main'
+            android:layout_width='match_parent'
+            android:layout_height='wrap_content'
+            android:layout_gravity="top"
+            android:background='?attr/colorPrimary'
+            android:minHeight='?attr/actionBarSize'>
+
+        </android.support.v7.widget.Toolbar>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+        <EditText
+            android:id="@+id/cadastro_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite seu nome"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/cadastro_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite seu email"
+            android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/cadastro_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite seu telefone"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/cadastro_Csenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Digite a sua senha"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/cadastro_senha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirme a sua senha"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btn_cadastroo_cadastrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Cadastrar" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

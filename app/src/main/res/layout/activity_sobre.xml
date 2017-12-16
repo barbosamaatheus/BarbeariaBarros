@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.barbosa.myapplication.Activitys.SobreActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id='@+id/tb_main'
+        android:layout_width='match_parent'
+        android:layout_height='wrap_content'
+        android:layout_gravity="top"
+        android:background='?attr/colorPrimary'
+        android:minHeight='?attr/actionBarSize' />
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </WebView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Aplicativo desenvolvido por: Matheus Barbosa de Oliveira"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=" Tel: (83)98812-1204 / Insta: @barbosamaatheus"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

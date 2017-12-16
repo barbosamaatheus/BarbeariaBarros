@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Barbearia Barros</string>
+
+
+    <string name="textoSobre">  Barbearia Barros foi inaugurada em novembro de 2017 por
+        Pedro Henrique Sales de Barros com o propósito de implantar um novo conceito no
+        que se trata de barba e cabelo na cidade. Localizada na Avenida Monteiro da Franca 1210,
+        em Manaíra, foi feita para os cavalheiros que almejam beleza, estilo, conforto e qualidade
+        nos serviços de corte, barba, selagem, pigmentação de barba, hidratação e tintura.
+        Sem contar que na Barbearia Barros você já sai pronto para o dia a dia ou nesmo para noite!
+        Então se você quer mudar o visual sem medo de falhar não tem erro,
+        Barbearia Barros chegou para modernizar o homem paraibano.</string>
+    <string name="horario">
+        *Os horarios fora do espediente não seram computados.\n
+        *Horario de funcionamento: Segunda á sexta das 9:30 as 19:30 e sábados das 10:00 às 18:00.
+
+    </string>
+
+
+</resources>
