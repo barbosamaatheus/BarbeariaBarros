@@ -1,19 +1,14 @@
 package com.example.barbosa.myapplication.Activitys;
 
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -27,26 +22,26 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class CalendarioActivity extends AppCompatActivity {
+public class ReservaActivity extends AppCompatActivity {
 
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
     private TextView text;
     private MaterialCalendarView mCalendario;
-    private Button btn_time, btn_reservar;
+    private Button btn_time, btn_reservar, btn_horario;
     private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendario);
+        setContentView(R.layout.activity_reserva);
 
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Marcar Reserva");
         setSupportActionBar(myToolbar);
         text = (TextView) findViewById(R.id.txt_TextDateTime);
 
-
+        btn_horario = (Button) findViewById(R.id.btn_hotarios);
         btn_time = (Button) findViewById(R.id.btn_timePicker);
         btn_reservar = (Button) findViewById(R.id.btn_reservar);
         mCalendario = (MaterialCalendarView) findViewById(R.id.calendarView);
@@ -71,7 +66,13 @@ public class CalendarioActivity extends AppCompatActivity {
         btn_reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CalendarioActivity.this, "Em Breve.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReservaActivity.this, "Em Breve.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btn_horario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHorarios();
             }
         });
     }
@@ -102,6 +103,13 @@ public class CalendarioActivity extends AppCompatActivity {
 
         text.setText(formatDateTime.format(dateTime.getTime()));
 
+    }
+    public void getHorarios(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReservaActivity.this);
+        builder.setTitle("Horarios")
+                .setMessage(R.string.horario);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
  /*private void updateDate(){

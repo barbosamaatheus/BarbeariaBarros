@@ -18,7 +18,7 @@ public class ServicosActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private Toolbar myToolbar;
-    private  List<Servico> mList;
+    private List<Servico> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +62,7 @@ public class ServicosActivity extends AppCompatActivity {
         ServicoAdapter servicoAdapter = new ServicoAdapter(this, mList);
         mRecyclerView.setAdapter(servicoAdapter);
     }
+
     public List<Servico> criarLista() {
         List<Servico> lista = new ArrayList<Servico>();
         // -->> Combos
@@ -83,7 +84,7 @@ public class ServicosActivity extends AppCompatActivity {
         Servico tonalização = new Servico("Tonalização", "Barba", "15,00");
         Servico barba = new Servico("Barba Pura", "Barba", "20,00");
         Servico designBarba = new Servico("Design de Barba", "Barba", "25,00");
-        Servico barbaA= new Servico("Barba Agendada", "Barba", "30,00");
+        Servico barbaA = new Servico("Barba Agendada", "Barba", "30,00");
 
         // -->> Produtos
         Servico pMate = new Servico("Pomada Modeladora", " AC Cosmeticos, Efeito Mate", "25,90");

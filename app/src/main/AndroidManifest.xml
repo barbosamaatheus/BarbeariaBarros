@@ -3,11 +3,13 @@
     package="com.example.barbosa.myapplication">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_icone"
         android:label="@string/app_name"
+        android:configChanges="orientation"
         android:roundIcon="@mipmap/ic_icone_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTheme">
@@ -21,11 +23,12 @@
         </activity>
         <activity android:name=".Activitys.MainActivity" />
         <activity android:name=".Activitys.SobreActivity" />
-        <activity android:name=".Activitys.CalendarioActivity" />
+        <activity android:name=".Activitys.ReservaActivity" />
         <activity android:name=".Activitys.ServicosActivity" />
         <activity android:name=".Activitys.CamActivity" />
         <activity android:name=".Activitys.LoginActivity" />
-        <activity android:name=".Activitys.CadastroActivity"></activity>
+        <activity android:name=".Activitys.CadastroActivity" />
+        <activity android:name=".Activitys.GalleryActivity"></activity>
     </application>
 
 </manifest>

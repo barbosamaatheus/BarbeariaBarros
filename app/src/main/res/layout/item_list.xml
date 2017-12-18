@@ -6,25 +6,23 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="TITULO"
-        android:textStyle="bold"
         android:textSize="20dp"
-        android:id="@+id/titulo"
-        />
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/titulo"
         android:layout_alignStart="@+id/titulo"
         android:layout_below="@+id/titulo"
         android:text="Sub titulo"
-        android:textSize="15dp"
-        android:id="@+id/descricao"
-        />
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -39,14 +37,24 @@
         android:textSize="20dp" />
 
     <TextView
+        android:id="@+id/preco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/preco"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="00,00"
         android:textSize="20dp" />
+    <View
+
+        android:id="@+id/vw_divider"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/descricao"
+        android:layout_alignStart="@id/titulo"
+        android:layout_alignLeft="@id/titulo"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp" />
 
 
 </RelativeLayout>

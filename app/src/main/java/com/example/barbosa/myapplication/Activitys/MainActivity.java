@@ -4,11 +4,13 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,62 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton sobre, servicos, agenda;
     private Toolbar myToolbar, mToolbarBottom;
+    private Layout myLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        onConfigurationChanged(getResources().getConfiguration());
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Barbearia Barros");
         setSupportActionBar(myToolbar);
 
-        mToolbarBottom = (Toolbar) findViewById(R.id.inc_tb_bottom);
-        mToolbarBottom.setTitle("Contato:");
-
-        mToolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                switch (item.getItemId()) {
-                    case R.id.action_insta:
-                        builder.setTitle("Instagram")
-                                .setPositiveButton("@barbearia.barros", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-
-                                        String uri = "https://www.instagram.com/barbearia.barros";
-                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                        startActivity(intent);
-                                    }
-                                })
-                                .setNegativeButton("@henribarross", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                        String uri = "https://www.instagram.com/henribarross";
-                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                        startActivity(intent);
-                                    }
-                                });
-                        break;
-                    case R.id.action_whats:
-                        builder.setMessage("(83) 99988-7783")
-                                .setTitle("WhatsApp")
-                                .setPositiveButton("Copiar", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        copy("83999887783");
-                                        Toast.makeText(MainActivity.this, "O numero: (83) 99988-7783, foi copiado para sua area de trasferencia.", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                        break;
-                }
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-                return true;
-            }
-        });
-        mToolbarBottom.inflateMenu(R.menu.menu_bottom);
 
         sobre = (ImageButton) findViewById(R.id.sobre);
         servicos = (ImageButton) findViewById(R.id.servicos);
@@ -101,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         agenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CalendarioActivity.class);
+                Intent intent = new Intent(MainActivity.this, ReservaActivity.class);
                 startActivity(intent);
 
             }
@@ -133,6 +90,27 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        int orientation = newConfig.orientation;
+
+        switch (orientation) {
+
+            case Configuration.ORIENTATION_LANDSCAPE:
+                //faça alguma coisa quando mudar pra landscape
+                setContentView(R.layout.activity_main_land);
+
+
+                break;
+
+            case Configuration.ORIENTATION_PORTRAIT:
+                //faça alguma coisa quando mudar pra potrait
+
+                break;
+
+        }
     }
 
 }

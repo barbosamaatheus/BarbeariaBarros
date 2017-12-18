@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
 
     tools:context="com.example.barbosa.myapplication.Activitys.CamActivity">
 
@@ -13,25 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
+
         <android.support.v7.widget.Toolbar
             android:id='@+id/tb_main'
             android:layout_width='match_parent'
             android:layout_height='wrap_content'
             android:layout_gravity="top"
             android:background='?attr/colorPrimary'
-            android:minHeight='?attr/actionBarSize'>
-        </android.support.v7.widget.Toolbar>
+            android:minHeight='?attr/actionBarSize'
+            app:titleTextColor="@android:color/white"></android.support.v7.widget.Toolbar>
 
     </LinearLayout>
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Pontos"
-       android:textSize="20sp"
-       android:textColor="#000"
-       android:textStyle="bold"
-       />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pontos"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,18 +45,22 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="#000"
-            android:textSize="80dp"/>
+            android:textSize="80dp" />
 
 
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/escaniar"
-        android:text="Escanear"
-        android:background="@android:color/transparent" />
+        android:layout_width="wrap_content"
 
+        android:layout_height="40dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Escanear" />
 
 
 </LinearLayout>

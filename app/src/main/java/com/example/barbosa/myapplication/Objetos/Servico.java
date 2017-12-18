@@ -1,4 +1,5 @@
 package com.example.barbosa.myapplication.Objetos;
+
 public class Servico {
 
     private String nome;
@@ -12,18 +13,23 @@ public class Servico {
         this.preco = preco;
 
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public String getDescricao() {
         return descricao;
     }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
     public void setPreco(String preco) {
         this.preco = preco;
     }

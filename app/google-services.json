@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "93517103323",
+    "firebase_url": "https://barbeariabarros-500e0.firebaseio.com",
+    "project_id": "barbeariabarros-500e0",
+    "storage_bucket": "barbeariabarros-500e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93517103323:android:3dd86d5c53a9f897",
+        "android_client_info": {
+          "package_name": "com.example.barbosa.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93517103323-niro38f9tl5idihro705cp563p5v8pe8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpb3_Olrb9ZBbVyuusZaRQY_46e4k--Qo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

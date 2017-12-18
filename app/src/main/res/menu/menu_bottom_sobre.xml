@@ -5,11 +5,18 @@
     tools:context="MainActivity">
 
     <item
+        android:id="@+id/action_map"
+        android:title="Mapa"
+        android:icon="@drawable/ic_map"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+    <item
         android:id="@+id/action_insta"
         android:title="Instagram"
         android:icon="@drawable/ic_insta"
         android:orderInCategory="100"
-        app:showAsAction="always"
+        app:showAsAction="withText|always"
         />
 
     <item
@@ -17,8 +24,9 @@
         android:title="WhatsApp"
         android:icon="@drawable/ic_whats"
         android:orderInCategory="100"
-        app:showAsAction="always"
+        app:showAsAction="withText|always"
         />
+
 
 
 

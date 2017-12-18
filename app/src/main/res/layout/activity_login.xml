@@ -4,22 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.example.barbosa.myapplication.Activitys.LoginActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background='?attr/colorPrimary'
+        >
+
+
         <android.support.v7.widget.Toolbar
             android:id='@+id/tb_main'
             android:layout_width='match_parent'
             android:layout_height='wrap_content'
             android:layout_gravity="top"
             android:background='?attr/colorPrimary'
-            android:minHeight='?attr/actionBarSize'>
+            android:minHeight='?attr/actionBarSize'
+            app:titleTextColor="@android:color/white">
 
         </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="BARBEARIA BARROS"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
@@ -27,37 +43,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_weight="1"
         android:gravity="center"
-        android:layout_weight="1">
+        android:orientation="vertical">
+
 
 
         <EditText
-            android:id="@+id/login_nome"
+            android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Nome"
-             />
+            android:hint="Email"
+            android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/login_senha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:hint="Senha"
-            />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login_entrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="clicaLogin"
+            android:background="@drawable/buttonshape"
             android:text="Entrar" />
 
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_login_cadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:onClick="criarUsuario"
+        android:text="Cadastrar" />
 </LinearLayout>

@@ -1,29 +1,49 @@
 package com.example.barbosa.myapplication.Objetos;
 
+import android.content.Context;
+
+
+
+import com.firebase.client.Firebase;
+
 /**
  * Created by User on 16/12/2017.
  */
 
 public class Cliente {
-    private int codigo;
+
+    private static final String TOKEN = "com.example.barbosa.myapplication.Objetos.Cliente.PROVIDER";
+    private String codigo;
     private String nome;
     private String email;
     private String telefone;
+
+    private String senha;
     private int pontos;
 
-    public Cliente(int codigo, String nome, String email, String telefone, int pontos) {
+    public Cliente(String codigo, String nome, String email, String telefone, String senha, int pontos) {
         this.codigo = codigo;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.pontos = pontos;
     }
+    public Cliente(){}
 
-    public Cliente(String nome, String email, String telefone) {
+    public Cliente(String nome, String email, String telefone, String senha) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
+        this.senha = senha;
         this.pontos = 0;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getTelefone() {
@@ -34,11 +54,11 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -65,6 +85,15 @@ public class Cliente {
     public void setPontos(int pontos) {
         this.pontos = pontos;
     }
+
+  /*  public void saveDB( ){
+        Firebase firebase = LibraryClass.getFirebase();
+        firebase = firebase.child("users").child(getCodigo());
+        setSenha(null);
+        setCodigo(null);
+        firebase.setValue(this);
+    }*/
+
 
 
 }

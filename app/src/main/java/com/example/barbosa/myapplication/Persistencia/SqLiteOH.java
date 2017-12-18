@@ -1,3 +1,4 @@
+/*
 package com.example.barbosa.myapplication.Persistencia;
 
 import android.content.ContentValues;
@@ -8,9 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.barbosa.myapplication.Objetos.Cliente;
 
+*/
 /**
  * Created by User on 16/12/2017.
- */
+ *//*
+
 
 public class SqLiteOH extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -95,3 +98,4 @@ public class SqLiteOH extends SQLiteOpenHelper {
     }
 
 }
+*/
