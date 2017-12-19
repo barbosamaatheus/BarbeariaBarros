@@ -1,6 +1,9 @@
 package com.example.barbosa.myapplication.Activitys;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.media.MediaCas;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +24,17 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class ReservaActivity extends AppCompatActivity {
 
@@ -30,6 +44,9 @@ public class ReservaActivity extends AppCompatActivity {
     private MaterialCalendarView mCalendario;
     private Button btn_time, btn_reservar, btn_horario;
     private Toolbar myToolbar;
+    Session session;
+    String email, senha;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +83,7 @@ public class ReservaActivity extends AppCompatActivity {
         btn_reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ReservaActivity.this, "Em Breve.", Toast.LENGTH_SHORT).show();
+                sendEmail();
             }
         });
         btn_horario.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +121,68 @@ public class ReservaActivity extends AppCompatActivity {
         text.setText(formatDateTime.format(dateTime.getTime()));
 
     }
-    public void getHorarios(){
+
+    public void getHorarios() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ReservaActivity.this);
         builder.setTitle("Horarios")
                 .setMessage(R.string.horario);
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void sendEmail() {
+        email = "matheustdd@gmail.com";
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.port", "465");
+
+        try {
+            session = Session.getDefaultInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(email, senha);
+
+                }
+            });
+
+            if (session != null) {
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(email));
+                message.setSubject("Reserva via APP");
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                message.setContent(text.getText().toString(), "text/html; charset=utf-8");
+                Transport.send(message);
+
+
+            }
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        Toast.makeText(ReservaActivity.this, "Reserva Enviada, Aguarde Confirmação em breve", Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    private void sendEmailWithApp() {
+        String to = "matheustdd@gmail.com";
+        String subject = "Reserva";
+        String mensage = text.getText().toString();
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, "Olá! Você tem uma nova reserva feita pelo aplicativo. " + mensage);
+
+        intent.setType("message/rfc822");
+        startActivity(Intent.createChooser(intent, "Select Email app"));
     }
 }
  /*private void updateDate(){

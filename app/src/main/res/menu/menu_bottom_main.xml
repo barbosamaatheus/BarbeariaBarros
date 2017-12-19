@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="MainActivity">
+
+    <item
+        android:id="@+id/action_sobre"
+        android:title="Sobre"
+        android:icon="@drawable/ic_home_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+    <item
+        android:id="@+id/action_servico"
+        android:title="Serviços"
+        android:icon="@drawable/ic_servico_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        android:titleCondensed="Servico"
+        />
+
+    <item
+        android:id="@+id/action_reserva"
+        android:title="Reserva"
+        android:icon="@drawable/ic_reserva_white_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+
+
+
+
+</menu>

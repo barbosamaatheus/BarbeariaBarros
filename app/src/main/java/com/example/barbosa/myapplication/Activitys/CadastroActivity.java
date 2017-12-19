@@ -1,7 +1,5 @@
-/*
 package com.example.barbosa.myapplication.Activitys;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,104 +7,126 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.barbosa.myapplication.Objetos.Cliente;
-import com.example.barbosa.myapplication.Objetos.Util.CommonActivity;
-
 import com.example.barbosa.myapplication.R;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Map;
 
 public class CadastroActivity extends AppCompatActivity {
-    private EditText mNome, mEmail, mTelefone, mSenha, mCSenha;
+
+    private EditText mNome, mEmail, mSenha;
     private Button mCadastrar;
     private Toolbar myToolbar;
     private Cliente cliente;
-    private Firebase firebase;
-
-
+    private ProgressBar progressBar;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
-
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Cadastro");
         setSupportActionBar(myToolbar);
 
-        //firebase = LibraryClass.getFirebase();
+        mAuth = FirebaseAuth.getInstance();
         initViews();
+        //verifyUserLogged();
+
         mCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendSignUpData();
             }
         });
-
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
     protected void initViews() {
         mNome = (EditText) findViewById(R.id.cadastro_nome);
         mEmail = (EditText) findViewById(R.id.cadastro_email);
-        mSenha = (EditText) findViewById(R.id.cadastro_Csenha);
-        mCadastrar = (Button) findViewById(R.id.btn_cadastroo_cadastrar);
+        mSenha = (EditText) findViewById(R.id.cadastro_senha);
+        mCadastrar = (Button) findViewById(R.id.btn_cadastro_cadastrar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_cadastro);
+
     }
-
-
     protected void initUser() {
         cliente = new Cliente();
         cliente.setNome(mNome.getText().toString());
         cliente.setEmail(mEmail.getText().toString());
-        cliente.setSenha(password.getText().toString());
+        cliente.setSenha(mSenha.getText().toString());
     }
-    public void sendSignUpData(){
-        openProgressBar();
+    private void verifyUserLogged(){
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Intent intent = new Intent(CadastroActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    Log.d("meuLog", "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d("meuLog", "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+
+    }
+    public void sendSignUpData() {
         initUser();
-        saveUser();
+        saveUser(cliente.getEmail().toString(), cliente.getSenha().toString());
+        openProgressBar();
     }
+    private void saveUser(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d("meuLog", "Cadastro Criado Com Sucesso:" + task.isSuccessful());
+                        callLoginActivity();
+                        closeProgressBar();
 
-    private void  saveUser(){
-        firebase.createUser(cliente.getEmail(), cliente.getSenha(), new Firebase.ValueResultHandler<Map<String, Object>>() {
-            @Override
-            public void onSuccess(Map<String, Object> stringObjectMap) {
-                cliente.setCodigo(stringObjectMap.get("uid").toString());
-                cliente.saveDB();
-                firebase.unauth();
-                showToast("Conta Criada Com Sucesso");
-                closeProgressBar();
-                finish();
-            }
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(CadastroActivity.this, "Erro No Cadastro",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                showSnackbar(firebaseError.getMessage());
-                closeProgressBar();
-            }
-        });
+                    }
+                });
     }
-
+    protected void openProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    protected void closeProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+    private void callLoginActivity(){
+        Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 }
-*/
-/*     mNome = (EditText) findViewById(R.id.cadastro_nome);
-        mEmail = (EditText) findViewById(R.id.cadastro_email);
-        mTelefone = (EditText) findViewById(R.id.cadastro_telefone);
-        mSenha = (EditText) findViewById(R.id.cadastro_senha);
-        mCSenha = (EditText) findViewById(R.id.cadastro_Csenha);
-        mCadastrar = (Button) findViewById(R.id.btn_cadastroo_cadastrar);
-*/

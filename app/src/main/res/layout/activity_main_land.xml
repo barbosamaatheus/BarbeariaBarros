@@ -27,34 +27,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/sobre"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_info_white_round" />
-
-        <ImageButton
-            android:id="@+id/servicos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_tesoura_round" />
-
-        <ImageButton
-            android:id="@+id/agenda"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_reserva_white_round" />
-
-
-    </LinearLayout>
+    <include
+        android:id="@+id/inc_tb_bottom"
+        layout="@layout/toolbar_bottom_main"
+        />
 
 
 </LinearLayout>

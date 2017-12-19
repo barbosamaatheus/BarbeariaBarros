@@ -62,7 +62,7 @@
 
 
         <EditText
-            android:id="@+id/cadastro_Csenha"
+            android:id="@+id/cadastro_senha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Digite a sua senha"
@@ -70,7 +70,7 @@
 
 
         <Button
-            android:id="@+id/btn_cadastroo_cadastrar"
+            android:id="@+id/btn_cadastro_cadastrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/buttonshape"
@@ -78,7 +78,7 @@
             android:text="Cadastrar" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBar_cadastro"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

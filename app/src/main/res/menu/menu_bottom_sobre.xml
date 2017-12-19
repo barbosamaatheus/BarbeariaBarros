@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/action_map"
-        android:title="Mapa"
+        android:title="Local"
         android:icon="@drawable/ic_map"
         android:orderInCategory="100"
         app:showAsAction="withText|always"
@@ -23,6 +23,20 @@
         android:id="@+id/action_whats"
         android:title="WhatsApp"
         android:icon="@drawable/ic_whats"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+    <item
+        android:id="@+id/action_email"
+        android:title="Email"
+        android:icon="@drawable/ic_email_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="withText|always"
+        />
+    <item
+        android:id="@+id/action_sobreDev"
+        android:title="App"
+        android:icon="@drawable/ic_info_white_24dp"
         android:orderInCategory="100"
         app:showAsAction="withText|always"
         />

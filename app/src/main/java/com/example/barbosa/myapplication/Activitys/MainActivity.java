@@ -9,22 +9,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.barbosa.myapplication.Objetos.Servico;
 import com.example.barbosa.myapplication.R;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    private ImageButton sobre, servicos, agenda;
     private Toolbar myToolbar, mToolbarBottom;
-    private Layout myLayout;
+    private ActionMenuView amvMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,43 +36,32 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.setTitle("Barbearia Barros");
         setSupportActionBar(myToolbar);
 
+        amvMenu = (ActionMenuView) findViewById(R.id.amvMenu);
 
-        sobre = (ImageButton) findViewById(R.id.sobre);
-        servicos = (ImageButton) findViewById(R.id.servicos);
-        agenda = (ImageButton) findViewById(R.id.agenda);
-
-        sobre.setOnClickListener(new View.OnClickListener() {
+        mToolbarBottom = (Toolbar) findViewById(R.id.inc_tb_bottom);
+        amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SobreActivity.class);
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = null;
+                switch (item.getItemId()) {
+                    case R.id.action_sobre:
+                        intent = new Intent(MainActivity.this, SobreActivity.class);
+                        break;
+                    case R.id.action_servico:
+                        intent = new Intent(MainActivity.this, ServicosActivity.class);
+                        break;
+                    case R.id.action_reserva:
+                        intent = new Intent(MainActivity.this, ReservaActivity.class);
+                        break;
+                }
                 startActivity(intent);
-
+                return true;
             }
         });
-        servicos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ServicosActivity.class);
-                startActivity(intent);
-            }
-        });
-        agenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ReservaActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bottom_main, amvMenu.getMenu());
     }
 
-    private void copy(String text) {
-        ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        ClipData myClip;
-        myClip = ClipData.newPlainText("text", text);
-        myClipboard.setPrimaryClip(myClip);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

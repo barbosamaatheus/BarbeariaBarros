@@ -33,8 +33,6 @@ public class SobreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sobre);
 
-        onConfigurationChanged(getResources().getConfiguration());
-
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Sobre");
         setSupportActionBar(myToolbar);
@@ -49,6 +47,7 @@ public class SobreActivity extends AppCompatActivity {
         mToolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(SobreActivity.this);
                 switch (item.getItemId()) {
                     case R.id.action_map:
@@ -87,6 +86,36 @@ public class SobreActivity extends AppCompatActivity {
                                     }
                                 });
                         break;
+                    case R.id.action_sobreDev:
+                        builder.setMessage(R.string.sobreDev)
+                                .setTitle("Sobre o Desemvolvedor")
+                                .setPositiveButton("Enviar Email", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        String to = "matheustdd@gmail.com";
+                                        Intent intent = new Intent(Intent.ACTION_SEND);
+                                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+                                        intent.setType("message/rfc822");
+                                        startActivity(Intent.createChooser(intent, "Select Email app"));
+                                        //Toast.makeText(SobreActivity.this, "Em Breve", Toast.LENGTH_LONG).show();
+
+                                    }
+                                })
+                                .setNegativeButton("Copiar Telefone", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        copy("83988121204");
+                                        Toast.makeText(SobreActivity.this, "O numero: (83) 98812-1204, " +
+                                                "foi copiado para sua area de trasferencia.", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                        break;
+
+                    case R.id.action_email:
+                        String to = "henriqueferrazferraz@gmail.com";
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
+                        i.setType("message/rfc822");
+                        startActivity(Intent.createChooser(i, "Select Email app"));
+                        break;
                 }
 
                 AlertDialog dialog = builder.create();
@@ -124,24 +153,4 @@ public class SobreActivity extends AppCompatActivity {
         myClipboard.setPrimaryClip(myClip);
     }
 
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        int orientation = newConfig.orientation;
-
-        switch (orientation) {
-
-            case Configuration.ORIENTATION_LANDSCAPE:
-                //faça alguma coisa quando mudar pra landscape
-                setContentView(R.layout.activity_sobre_land);
-
-
-                break;
-
-            case Configuration.ORIENTATION_PORTRAIT:
-                //faça alguma coisa quando mudar pra potrait
-
-                break;
-
-        }
-    }
 }
