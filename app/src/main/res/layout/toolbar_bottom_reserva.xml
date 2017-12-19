@@ -4,6 +4,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorAccent"
     android:gravity="center"
+    android:layout_gravity="bottom"
     android:orientation="horizontal">
 
     <LinearLayout

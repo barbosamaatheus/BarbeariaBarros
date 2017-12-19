@@ -7,23 +7,24 @@
     android:orientation="vertical"
     tools:context="com.example.barbosa.myapplication.Activitys.ReservaActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id='@+id/tb_main'
+        android:layout_width='match_parent'
+        android:layout_height='wrap_content'
+        android:layout_gravity="top"
+        android:background='?attr/colorPrimary'
+        android:minHeight='?attr/actionBarSize'
+        app:titleTextColor="@android:color/white" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <android.support.v7.widget.Toolbar
-                android:id='@+id/tb_main'
-                android:layout_width='match_parent'
-                android:layout_height='wrap_content'
-                android:layout_gravity="top"
-                android:background='?attr/colorPrimary'
-                android:minHeight='?attr/actionBarSize'
-                app:titleTextColor="@android:color/white" />
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/calendarView"
@@ -35,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -54,22 +56,20 @@
                     android:text="Horarios" />
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="bottom">
-
-                <include
-                    android:id="@+id/inc_tb_bottom"
-                    layout="@layout/toolbar_bottom_reserva" />
-
-            </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
 
+        <include
+            android:id="@+id/inc_tb_bottom"
+            layout="@layout/toolbar_bottom_reserva" />
+
+    </LinearLayout>
 
 
 </LinearLayout>
