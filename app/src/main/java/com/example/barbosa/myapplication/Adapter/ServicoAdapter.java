@@ -41,6 +41,7 @@ public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.MyViewHo
         myViewHolder.mTitulo.setText(mList.get(position).getNome());
         myViewHolder.mSubTitulo.setText(mList.get(position).getDescricao());
         myViewHolder.mPreco.setText(mList.get(position).getPreco());
+
     }
 
     @Override
@@ -56,6 +57,7 @@ public class ServicoAdapter extends RecyclerView.Adapter<ServicoAdapter.MyViewHo
             mTitulo = (TextView) itemView.findViewById(R.id.titulo);
             mSubTitulo = (TextView) itemView.findViewById(R.id.descricao);
             mPreco = (TextView) itemView.findViewById(R.id.preco);
+
         }
     }
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.example.barbosa.myapplication.Objetos.Cliente;
 import com.example.barbosa.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,11 +20,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = "meulog";
     private Toolbar myToolbar;
     private Button btn_entrar, btn_cadastro;
     private EditText mEmail, mSenha;
+    private int Pontos;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
     private Cliente cliente;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
@@ -36,17 +43,19 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
-        myToolbar.setTitle("Entrar");
+        myToolbar.setTitle("Barbearia Barros");
         setSupportActionBar(myToolbar);
-        mAuth = FirebaseAuth.getInstance();
+
         initViews();
-        verifyUserLogged();
+
+        mAuth = FirebaseAuth.getInstance();
 
         btn_cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -59,31 +68,48 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    private void verificarLogin(String email, String password){
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+
+    }
+
+    private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("meuLog", "signInWithEmail:onComplete:" + task.isSuccessful());
-                        callMainActivity();
-                        closeProgressBar();
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w("meuLog", "signInWithEmail:failed", task.getException());
-                            Toast.makeText(LoginActivity.this, "signInWithEmail:failed",
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            Toast.makeText(LoginActivity.this, "signInWithEmail:success",
                                     Toast.LENGTH_SHORT).show();
+                            closeProgressBar();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(getApplicationContext(), CamActivity.class);
+                            startActivity(intent);
+
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "signInWithEmail:failure",
+                                    Toast.LENGTH_SHORT).show();
+                            closeProgressBar();
+
+
                         }
 
                         // ...
                     }
                 });
-
-
     }
-    private void verifyUserLogged(){
+
+    private void verifyUserLogged() {
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -102,31 +128,38 @@ public class LoginActivity extends AppCompatActivity {
         };
 
     }
-    private void callMainActivity(){
+
+    private void callMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
-    public void sendLoginData(){
+
+    public void sendLoginData() {
         initUser();
-        verificarLogin(cliente.getEmail().toString(), cliente.getSenha().toString());
+        signIn(cliente.getEmail().toString(), cliente.getSenha().toString());
         openProgressBar();
     }
+
     protected void initViews() {
         mEmail = (EditText) findViewById(R.id.login_email);
         mSenha = (EditText) findViewById(R.id.login_senha);
         btn_entrar = (Button) findViewById(R.id.btn_login_entrar);
         btn_cadastro = (Button) findViewById(R.id.btn_login_cadastro);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar_login);    }
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_login);
+    }
+
     protected void initUser() {
         cliente = new Cliente();
         cliente.setEmail(mEmail.getText().toString());
         cliente.setSenha(mSenha.getText().toString());
 
     }
+
     protected void openProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
     }
+
     protected void closeProgressBar() {
         progressBar.setVisibility(View.GONE);
     }

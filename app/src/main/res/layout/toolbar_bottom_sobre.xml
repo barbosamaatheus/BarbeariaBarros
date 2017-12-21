@@ -5,7 +5,7 @@
     android:layout_height='wrap_content'
     android:layout_gravity="top"
     android:gravity="center"
-    android:background='@color/colorAccent'
+    android:background='@android:color/transparent'
     android:minHeight='?attr/actionBarSize'>
 </android.support.v7.widget.Toolbar>
 

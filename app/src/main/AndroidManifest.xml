@@ -26,9 +26,8 @@
         <activity android:name=".Activitys.ReservaActivity" />
         <activity android:name=".Activitys.ServicosActivity" />
         <activity android:name=".Activitys.CamActivity" />
-        <activity android:name=".Activitys.LoginActivity" />
         <activity android:name=".Activitys.GalleryActivity" />
-        <activity android:name=".Activitys.CadastroActivity"></activity>
+        <activity android:name=".Activitys.LoginActivity"></activity>
     </application>
 
 </manifest>
