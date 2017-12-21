@@ -17,11 +17,10 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
-
     private String senha;
-    private int pontos;
+    private String pontos;
 
-    public Cliente(String codigo, String nome, String email, String telefone, String senha, int pontos) {
+    public Cliente(String codigo, String nome, String email, String telefone, String senha, String pontos) {
         this.codigo = codigo;
         this.nome = nome;
         this.email = email;
@@ -35,7 +34,7 @@ public class Cliente {
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
-        this.pontos = 0;
+        this.pontos = "0";
     }
 
     public String getSenha() {
@@ -78,11 +77,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public int getPontos() {
+    public String getPontos() {
         return pontos;
     }
 
-    public void setPontos(int pontos) {
+    public void setPontos(String pontos) {
         this.pontos = pontos;
     }
 

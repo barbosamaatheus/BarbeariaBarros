@@ -27,11 +27,10 @@ public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private EditText mNome, mEmail, mSenha;
-    private Button mCadastrar;
+    private Button mCadastrar, mVoltar;
     private Toolbar myToolbar;
     private Cliente cliente;
     private ProgressBar progressBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +41,9 @@ public class CadastroActivity extends AppCompatActivity {
         myToolbar.setTitle("Barbearia Barros");
         setSupportActionBar(myToolbar);
 
-        mNome = (EditText) findViewById(R.id.cadastro_nome);
-        mEmail = (EditText) findViewById(R.id.cadastro_email);
-        mSenha = (EditText) findViewById(R.id.cadastro_senha);
-        mCadastrar = (Button) findViewById(R.id.btn_cadastro_cadastrar);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar_cad);
+        initViews();
 
         mAuth = FirebaseAuth.getInstance();
-                //verifyUserLogged();
 
         mCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,15 +51,14 @@ public class CadastroActivity extends AppCompatActivity {
                 sendSignUpData();
             }
         });
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        mVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callLoginActivity();
 
-
+            }
+        });
     }
 
     protected void initUser() {
@@ -74,6 +67,16 @@ public class CadastroActivity extends AppCompatActivity {
         cliente.setEmail(mEmail.getText().toString());
         cliente.setSenha(mSenha.getText().toString());
     }
+
+    protected void initViews() {
+        mNome = (EditText) findViewById(R.id.cadastro_nome);
+        mEmail = (EditText) findViewById(R.id.cadastro_email);
+        mSenha = (EditText) findViewById(R.id.cadastro_senha);
+        mCadastrar = (Button) findViewById(R.id.btn_cadastro_cadastrar);
+        mVoltar = (Button) findViewById(R.id.btn_cadastro_login);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_cad);
+    }
+
     public void sendSignUpData() {
         initUser();
         createUser(cliente.getEmail().toString(), cliente.getSenha().toString());
@@ -87,27 +90,23 @@ public class CadastroActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(CadastroActivity.this, "createUserWithEmail:success",
+                                    Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "createUserWithEmail:success",
-                                    Toast.LENGTH_SHORT).show();
+                            callLoginActivity();
 
-                           /* FirebaseDatabase database = database = FirebaseDatabase.getInstance();
-                            DatabaseReference ref = database.getReference("user").child(FirebaseAuth.getInstance()
+                            cliente.setCodigo(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid());
-                            ref.child("email").setValue(mEmail.getText().toString());
-                            ref.child("uid").setValue(FirebaseAuth.getInstance()
-                                    .getCurrentUser().getUid());*/
+                            cliente.setPontos("0");
                             closeProgressBar();
-
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "createUserWithEmail:failure",
+                            Toast.makeText(CadastroActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             closeProgressBar();
-
 
                         }
 
@@ -115,6 +114,13 @@ public class CadastroActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void callLoginActivity() {
+        Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     protected void openProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
@@ -124,8 +130,4 @@ public class CadastroActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
-    private void callLoginActivity() {
-        Intent intent = new Intent(CadastroActivity.this, LoginActivity.class);
-        startActivity(intent);
-    }
 }

@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_add) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, CamActivity.class);
             startActivity(intent);
             //Toast.makeText(MainActivity.this, "Em Breve.", Toast.LENGTH_SHORT).show();
         }

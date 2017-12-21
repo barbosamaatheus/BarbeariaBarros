@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.barbosa.myapplication.Activitys.LoginActivity">
+    tools:context="com.example.barbosa.myapplication.Activitys.CadastroActivity">
 
     <android.support.v7.widget.Toolbar
         android:id='@+id/tb_main'
@@ -23,8 +23,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="CADASTRO"
         android:textColor="@android:color/black"
         android:textSize="40dp"
@@ -32,13 +32,14 @@
 
 
     <android.support.v7.widget.CardView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
+        android:layout_weight="1"
+
         app:cardCornerRadius="4dp"
         app:cardElevation="3dp"
         app:cardMaxElevation="3dp"
@@ -61,12 +62,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Nome"
                 android:inputType="textPersonName" />
+
             <EditText
                 android:id="@+id/cadastro_telefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefone"
                 android:inputType="textPersonName" />
+
             <EditText
                 android:id="@+id/cadastro_email"
                 android:layout_width="match_parent"
@@ -101,10 +104,11 @@
 
 
     <Button
-        android:layout_weight="1"
         android:id="@+id/btn_cadastro_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@android:color/transparent"
         android:text="voltar para login" />
+
 </LinearLayout>
