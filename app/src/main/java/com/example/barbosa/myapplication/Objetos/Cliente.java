@@ -29,12 +29,11 @@ public class Cliente {
     }
     public Cliente(){}
 
-    public Cliente(String nome, String email, String telefone, String senha) {
+    public Cliente(String email, String nome, String pontos, String telefone) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
-        this.senha = senha;
-        this.pontos = "0";
+        this.pontos = pontos;
     }
 
     public String getSenha() {
@@ -85,14 +84,15 @@ public class Cliente {
         this.pontos = pontos;
     }
 
-  /*  public void saveDB( ){
-        Firebase firebase = LibraryClass.getFirebase();
-        firebase = firebase.child("users").child(getCodigo());
-        setSenha(null);
-        setCodigo(null);
-        firebase.setValue(this);
-    }*/
-
-
-
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "codigo='" + codigo + '\'' +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", senha='" + senha + '\'' +
+                ", pontos='" + pontos + '\'' +
+                '}';
+    }
 }

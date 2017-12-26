@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,7 +27,7 @@ public class CadastroActivity extends AppCompatActivity {
     private static final String TAG = "meulog";
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private EditText mNome, mEmail, mSenha;
+    private EditText mNome, mEmail, mSenha, mTelefone;
     private Button mCadastrar, mVoltar;
     private Toolbar myToolbar;
     private Cliente cliente;
@@ -37,8 +38,8 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        myToolbar = (Toolbar) findViewById(R.id.tb_main);
-        myToolbar.setTitle("Barbearia Barros");
+        myToolbar = (Toolbar) findViewById(R.id.tb_cadastro);
+        myToolbar.setTitle("");
         setSupportActionBar(myToolbar);
 
         initViews();
@@ -65,12 +66,15 @@ public class CadastroActivity extends AppCompatActivity {
         cliente = new Cliente();
         cliente.setNome(mNome.getText().toString());
         cliente.setEmail(mEmail.getText().toString());
+        cliente.setTelefone(mTelefone.getText().toString());
         cliente.setSenha(mSenha.getText().toString());
+        cliente.setPontos("2");
     }
 
     protected void initViews() {
         mNome = (EditText) findViewById(R.id.cadastro_nome);
         mEmail = (EditText) findViewById(R.id.cadastro_email);
+        mTelefone = (EditText) findViewById(R.id.cadastro_telefone);
         mSenha = (EditText) findViewById(R.id.cadastro_senha);
         mCadastrar = (Button) findViewById(R.id.btn_cadastro_cadastrar);
         mVoltar = (Button) findViewById(R.id.btn_cadastro_login);
@@ -98,7 +102,17 @@ public class CadastroActivity extends AppCompatActivity {
 
                             cliente.setCodigo(FirebaseAuth.getInstance()
                                     .getCurrentUser().getUid());
-                            cliente.setPontos("0");
+
+                            Log.d("user", cliente.toString());
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference reference = database.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            reference.child("codigo").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            reference.child("nome").setValue(cliente.getNome());
+                            reference.child("email").setValue(cliente.getEmail());
+                            reference.child("telefone").setValue(cliente.getTelefone());
+                            reference.child("pontos").setValue(cliente.getPontos());
+
+                            mAuth.signOut();
                             closeProgressBar();
 
                         } else {

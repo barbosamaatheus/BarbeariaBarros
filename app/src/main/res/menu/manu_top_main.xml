@@ -3,11 +3,17 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/action_qr"
         android:title="Adicionar"
         android:icon="@drawable/ic_qrcode"
         android:orderInCategory="100"
         app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/action_exit"
+        android:title="Sair"
+        android:orderInCategory="100"
+        app:showAsAction="never"
         ></item>
 
 </menu>

@@ -11,20 +11,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.barbosa.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar myToolbar, mToolbarBottom;
     private ActionMenuView amvMenu;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         onConfigurationChanged(getResources().getConfiguration());
+
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Barbearia Barros");
         setSupportActionBar(myToolbar);
+
+        mAuth = FirebaseAuth.getInstance();
+
         amvMenu = (ActionMenuView) findViewById(R.id.amvMenu);
         mToolbarBottom = (Toolbar) findViewById(R.id.inc_tb_bottom);
         amvMenu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
@@ -55,18 +62,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.ic_qrcode, menu);
+        getMenuInflater().inflate(R.menu.manu_top_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_add) {
-            Intent intent = new Intent(MainActivity.this, CamActivity.class);
-            startActivity(intent);
-            //Toast.makeText(MainActivity.this, "Em Breve.", Toast.LENGTH_SHORT).show();
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.action_qr:
+                intent = new Intent(MainActivity.this, CamActivity.class);
+                //Toast.makeText(MainActivity.this, "Em Breve.", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_exit:
+                mAuth.signOut();
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+
+                break;
         }
+        startActivity(intent);
         return super.onOptionsItemSelected(item);
     }
 

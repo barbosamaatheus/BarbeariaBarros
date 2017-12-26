@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#B71C1C">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#B71C1C"
+        android:background="#E0E0E0"
+        android:text="  HORÁRIO DE ATENDIMENTO  "
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="SEGUNDA A SEXTA"
+        android:gravity="center"
+        android:textColor="#E0E0E0"
+        android:textStyle="bold"
+         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="9:30 ÀS 19:30"
+        android:gravity="center"
+        android:textColor="#E0E0E0"
+        android:fontFamily="sans-serif"
+       />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="SABADOS"
+        android:gravity="center"
+        android:textColor="#E0E0E0"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10:00 ÀS 18:00"
+        android:gravity="center"
+        android:textColor="#E0E0E0"
+        android:fontFamily="sans-serif"
+        android:layout_marginBottom="38dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/horario"
+        android:gravity="center"
+        android:textSize="10dp"
+        android:textColor="#E0E0E0"
+        android:fontFamily="sans-serif"
+
+        />
+
+
+</LinearLayout>

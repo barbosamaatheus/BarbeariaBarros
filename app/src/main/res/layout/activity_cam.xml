@@ -50,17 +50,31 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/escaniar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        android:layout_height="40dp"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="Escanear" />
+        <Button
+            android:id="@+id/escaniar"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Escanear" />
+
+        <Button
+            android:id="@+id/trocar"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Trocar Pontos" />
+
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

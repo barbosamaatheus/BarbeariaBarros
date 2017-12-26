@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.barbosa.myapplication.Activitys.MainActivity;
 import com.example.barbosa.myapplication.R;
@@ -14,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
     private static final long delay = 2000;
+    private ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -23,6 +26,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         setContentView(R.layout.activity_splash);
 
         mAuth = FirebaseAuth.getInstance();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_splash);
 
         Handler h = new Handler();
         h.postDelayed(this, delay);
@@ -31,7 +35,8 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
 
     @Override
     public void run() {
-        verifyUserLogged();
+       verifyUserLogged();
+
     }
 
     private void verifyUserLogged() {
@@ -40,6 +45,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         if (user != null) {
             // User is signed in
             callNextActivity();
+
         } else {
             callLoginActivity();
             // No user is signed in

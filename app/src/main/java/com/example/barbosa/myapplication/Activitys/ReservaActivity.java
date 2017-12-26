@@ -1,6 +1,7 @@
 package com.example.barbosa.myapplication.Activitys;
 
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaCas;
 import android.os.StrictMode;
@@ -16,13 +17,19 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.barbosa.myapplication.Objetos.Cliente;
 import com.example.barbosa.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -40,6 +47,9 @@ public class ReservaActivity extends AppCompatActivity {
 
     DateFormat formatDateTime = DateFormat.getDateTimeInstance();
     Calendar dateTime = Calendar.getInstance();
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    private Cliente cliente;
     private TextView text;
     private MaterialCalendarView mCalendario;
     private Button btn_time, btn_reservar, btn_horario;
@@ -92,6 +102,19 @@ public class ReservaActivity extends AppCompatActivity {
                 getHorarios();
             }
         });
+
+        ref.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                cliente = dataSnapshot.getValue(Cliente.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void updateDate() {
@@ -124,14 +147,14 @@ public class ReservaActivity extends AppCompatActivity {
 
     public void getHorarios() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ReservaActivity.this);
-        builder.setTitle("Horarios")
-                .setMessage(R.string.horario);
+        builder.setView(R.layout.horarios_layout);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void sendEmail() {
         email = "matheustdd@gmail.com";
+        senha = "soberano633";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Properties properties = new Properties();
@@ -155,7 +178,11 @@ public class ReservaActivity extends AppCompatActivity {
                 message.setFrom(new InternetAddress(email));
                 message.setSubject("Reserva via APP");
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                message.setContent(text.getText().toString(), "text/html; charset=utf-8");
+                message.setContent("UMA NOVA RESERVA FOI SOLICITADA"
+                        + " --> " + "Data e horario: " + text.getText().toString()
+                        + " --> " + "Nome: " + cliente.getNome()
+                        + " --> " + "Telefone: " + cliente.getTelefone()
+                        + " --> " + "Email: " + cliente.getEmail(), "text/html; charset=utf-8");
                 Transport.send(message);
 
 
@@ -184,7 +211,11 @@ public class ReservaActivity extends AppCompatActivity {
         intent.setType("message/rfc822");
         startActivity(Intent.createChooser(intent, "Select Email app"));
     }
+
+
 }
+
+
  /*private void updateDate(){
         new DatePickerDialog(this, d, dateTime.get(Calendar.YEAR),dateTime.get(Calendar.MONTH),dateTime.get(Calendar.DAY_OF_MONTH)).show();
     }

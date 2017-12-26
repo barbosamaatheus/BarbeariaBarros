@@ -42,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        myToolbar = (Toolbar) findViewById(R.id.tb_main);
-        myToolbar.setTitle("Barbearia Barros");
+        myToolbar = (Toolbar) findViewById(R.id.tb_login);
+        myToolbar.setTitle("");
         setSupportActionBar(myToolbar);
 
         initViews();
