@@ -96,10 +96,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         } else {
+                            mEmail.setError("Usuario ou Senha incorretos");
+                            View focus = mEmail;
+                            focus.requestFocus();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "signInWithEmail:failure",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login falhou, Verifique sua conexão com a internet",
+                                    Toast.LENGTH_LONG).show();
                             closeProgressBar();
 
 
@@ -122,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("meuLog", "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
+
                     Log.d("meuLog", "onAuthStateChanged:signed_out");
                 }
                 // ...
@@ -138,8 +142,36 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendLoginData() {
         initUser();
-        signIn(cliente.getEmail().toString(), cliente.getSenha().toString());
-        openProgressBar();
+        String email = cliente.getEmail().toString();
+        String senha = cliente.getSenha().toString();
+
+        if (!email.isEmpty() && !senha.isEmpty()){
+            signIn(email,senha);
+            openProgressBar();
+        }else{
+            View focus = null;
+            boolean exibir = false;
+
+            if (email.isEmpty()){
+                mEmail.setError("Campo vazio");
+                focus = mEmail;
+                exibir = true;
+
+            }
+            if (senha.isEmpty()){
+                mSenha.setError("Campo vazio ");
+                focus = mSenha;
+                exibir = true;
+
+            }
+            if(exibir){//com a variável auxiliar atribuida valor booleano true, exibir a menssagem na tela
+
+                focus.requestFocus();
+                closeProgressBar();
+
+            }
+        }
+
     }
 
     protected void initViews() {

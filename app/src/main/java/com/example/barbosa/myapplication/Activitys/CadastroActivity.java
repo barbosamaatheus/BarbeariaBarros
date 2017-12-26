@@ -83,8 +83,50 @@ public class CadastroActivity extends AppCompatActivity {
 
     public void sendSignUpData() {
         initUser();
-        createUser(cliente.getEmail().toString(), cliente.getSenha().toString());
-        openProgressBar();
+        String email = cliente.getEmail().toString();
+        String senha = cliente.getSenha().toString();
+
+        if (!email.isEmpty() && !senha.isEmpty()) {
+            createUser(email, senha);
+            openProgressBar();
+
+        } else {
+            View focus = null;
+            boolean exibir = false;
+
+            if (cliente.getNome().isEmpty()) {
+                mNome.setError("Campo vazio ");
+                focus = mNome;
+                exibir = true;
+
+            }
+            if (cliente.getTelefone().isEmpty()) {
+                mTelefone.setError("Campo vazio ");
+                focus = mTelefone;
+                exibir = true;
+            }
+
+
+            if (email.isEmpty()) {
+                mEmail.setError("Campo vazio");
+                focus = mEmail;
+                exibir = true;
+
+            }
+            if (senha.isEmpty()) {
+                mSenha.setError("Campo vazio ");
+                focus = mSenha;
+                exibir = true;
+
+            }
+            if (exibir) {//com a variável auxiliar atribuida valor booleano true, exibir a menssagem na tela
+
+                focus.requestFocus();
+                closeProgressBar();
+
+            }
+        }
+
     }
 
     private void createUser(String email, String password) {
@@ -118,7 +160,7 @@ public class CadastroActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(CadastroActivity.this, "Authentication failed.",
+                            Toast.makeText(CadastroActivity.this, "Cadastro falhou, verifique sua conexao com a internet",
                                     Toast.LENGTH_SHORT).show();
                             closeProgressBar();
 

@@ -154,7 +154,6 @@ public class ReservaActivity extends AppCompatActivity {
 
     private void sendEmail() {
         email = "matheustdd@gmail.com";
-        senha = "soberano633";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Properties properties = new Properties();
