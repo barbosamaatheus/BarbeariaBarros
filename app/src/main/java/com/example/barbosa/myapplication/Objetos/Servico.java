@@ -5,12 +5,16 @@ public class Servico {
     private String nome;
     private String descricao;
     private String preco;
+    private String valorPts;
 
+    public Servico() {
+    }
 
-    public Servico(String nome, String descricao, String preco) {
+    public Servico(String nome, String descricao, String preco, String valorPts) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
+        this.valorPts = valorPts;
 
     }
 
@@ -36,6 +40,14 @@ public class Servico {
 
     public String getPreco() {
         return preco;
+    }
+
+    public String getValorPts() {
+        return valorPts;
+    }
+
+    public void setValorPts(String valorPts) {
+        this.valorPts = valorPts;
     }
 }
 

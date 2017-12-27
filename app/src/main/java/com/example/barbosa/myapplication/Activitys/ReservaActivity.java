@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -66,6 +67,9 @@ public class ReservaActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Marcar Reserva");
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         text = (TextView) findViewById(R.id.txt_TextDateTime);
 
         btn_horario = (Button) findViewById(R.id.btn_hotarios);
@@ -209,6 +213,19 @@ public class ReservaActivity extends AppCompatActivity {
 
         intent.setType("message/rfc822");
         startActivity(Intent.createChooser(intent, "Select Email app"));
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        }
+        startActivity(intent);
+        finish();
+        return super.onOptionsItemSelected(item);
+
     }
 
 

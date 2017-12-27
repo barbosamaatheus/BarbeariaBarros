@@ -90,10 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             closeProgressBar();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
+                            callMainActivity();
 
                         } else {
                             mEmail.setError("Usuario ou Senha incorretos");
@@ -135,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void callMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
         finish();
     }

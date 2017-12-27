@@ -9,7 +9,9 @@
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/descricao"
         android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/descricao"
         android:text="TITULO"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -18,14 +20,17 @@
         android:id="@+id/descricao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/titulo"
-        android:layout_alignStart="@+id/titulo"
-        android:layout_below="@+id/titulo"
+        android:layout_alignBaseline="@+id/text_pts"
+        android:layout_alignBottom="@+id/text_pts"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@+id/text_pts"
+        android:layout_toStartOf="@+id/text_pts"
         android:text="Sub titulo"
         android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/rs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -45,9 +50,30 @@
         android:layout_alignParentTop="true"
         android:text="00,00"
         android:textSize="20dp" />
-    <View
 
-        android:id="@+id/vw_divider"
+
+    <TextView
+        android:id="@+id/text_pts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignLeft="@+id/rs"
+        android:layout_alignStart="@+id/rs"
+        android:layout_below="@+id/titulo"
+        android:text="Pts: "
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/valorp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/preco"
+        android:text="1"
+        android:textSize="20dp" />
+
+    <View
         android:layout_marginTop="20dp"
         android:layout_below="@+id/descricao"
         android:layout_alignStart="@id/titulo"

@@ -12,32 +12,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
             android:id='@+id/tb_main'
             android:layout_width='match_parent'
             android:layout_height='wrap_content'
-            android:layout_gravity="top"
-            android:background='?attr/colorPrimary'
+            android:background="@color/colorPrimary"
             android:minHeight='?attr/actionBarSize'
-            app:titleTextColor="@android:color/white"></android.support.v7.widget.Toolbar>
+            app:titleTextColor="@android:color/white"
+            app:theme="@style/Theme.MyThemeTB">
+        </android.support.v7.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/text_entrada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Olá Usuario, voce póssui:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pontos"
-        android:textColor="#000"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/pontos"
@@ -46,6 +53,14 @@
             android:text="0"
             android:textColor="#000"
             android:textSize="80dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pontos"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -58,23 +73,21 @@
         <Button
             android:id="@+id/escaniar"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:text="Escanear" />
 
         <Button
             android:id="@+id/trocar"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:text="Trocar Pontos" />
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

@@ -1,16 +1,20 @@
 package com.example.barbosa.myapplication.Activitys;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barbosa.myapplication.Objetos.Cliente;
+import com.example.barbosa.myapplication.Objetos.Servico;
 import com.example.barbosa.myapplication.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.FirebaseError;
@@ -24,13 +28,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CamActivity extends AppCompatActivity {
+    
     private Toolbar myToolbar;
-    private TextView mPontos;
-    private Button btnScan;
+    private TextView mPontos, mTextEntrada;
+    private Button btnScan, btnTroca;
     private Cliente cliente;
     private int pontos;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -46,9 +53,19 @@ public class CamActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Pontos");
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
-        mPontos = (TextView) findViewById(R.id.pontos);
-        btnScan = (Button) findViewById(R.id.escaniar);
+        initViews();
+
+        btnTroca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CamActivity.this, ServicosActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +83,9 @@ public class CamActivity extends AppCompatActivity {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                 cliente = dataSnapshot.getValue(Cliente.class);
-                System.out.println(cliente);
                 pontos = Integer.parseInt(cliente.getPontos());
                 mPontos.setText(cliente.getPontos());
+                mTextEntrada.setText("Olá "+cliente.getNome()+", voce póssui:");
 
             }
 
@@ -78,7 +95,12 @@ public class CamActivity extends AppCompatActivity {
             }
         });
     }
-
+    protected void initViews(){
+        mPontos = (TextView) findViewById(R.id.pontos);
+        mTextEntrada = (TextView) findViewById(R.id.text_entrada);
+        btnScan = (Button) findViewById(R.id.escaniar);
+        btnTroca = (Button) findViewById(R.id.trocar);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -101,5 +123,18 @@ public class CamActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        }
+        startActivity(intent);
+        finish();
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

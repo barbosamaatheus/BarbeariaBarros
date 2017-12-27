@@ -36,6 +36,9 @@ public class SobreActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Sobre");
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         TextViewEx changed = (TextViewEx) findViewById(R.id.changed);
         changed.setText(getResources().getString(R.string.textoSobre), true);
@@ -136,12 +139,18 @@ public class SobreActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
         int id = item.getItemId();
+        if(id == android.R.id.home){
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+
+        }
         if (id == R.id.action_gallery) {
-            Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), GalleryActivity.class);
             Toast.makeText(SobreActivity.this, "Em Desemvolvimento.", Toast.LENGTH_SHORT).show();
         }
+        startActivity(intent);
+        finish();
         return super.onOptionsItemSelected(item);
 
     }

@@ -1,11 +1,14 @@
 package com.example.barbosa.myapplication.Activitys;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.barbosa.myapplication.Adapter.CardAdapter;
 import com.example.barbosa.myapplication.Adapter.ServicoAdapter;
@@ -25,9 +28,12 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Fotos");
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -63,5 +69,17 @@ public class GalleryActivity extends AppCompatActivity {
 
 
         return lista;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            intent = new Intent(getApplicationContext(), SobreActivity.class);
+
+        }
+        startActivity(intent);
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }
