@@ -80,9 +80,12 @@ public class SobreActivity extends AppCompatActivity {
                         break;
                     case R.id.action_whats:
                         builder.setMessage("(83) 99988-7783")
-                                .setTitle("WhatsApp")
-                                .setPositiveButton("Copiar", new DialogInterface.OnClickListener() {
+                                .setTitle("Contato e WhatsApp")
+                                .setPositiveButton("Ligar e copiar", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
+                                        Uri uri = Uri.parse("tel:"+"83999887783");
+                                        Intent intent = new Intent(Intent.ACTION_DIAL,uri);
+                                        startActivity(intent);
                                         copy("83999887783");
                                         Toast.makeText(SobreActivity.this, "O numero: (83) 99988-7783, " +
                                                 "foi copiado para sua area de trasferencia.", Toast.LENGTH_LONG).show();
@@ -103,11 +106,11 @@ public class SobreActivity extends AppCompatActivity {
 
                                     }
                                 })
-                                .setNegativeButton("Copiar Telefone", new DialogInterface.OnClickListener() {
+                                .setNegativeButton("Ligar", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        copy("83988121204");
-                                        Toast.makeText(SobreActivity.this, "O numero: (83) 98812-1204, " +
-                                                "foi copiado para sua area de trasferencia.", Toast.LENGTH_LONG).show();
+                                        Uri uri = Uri.parse("tel:"+"83988121204");
+                                        Intent intent = new Intent(Intent.ACTION_DIAL,uri);
+                                        startActivity(intent);
                                     }
                                 });
                         break;

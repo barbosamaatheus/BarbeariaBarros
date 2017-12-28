@@ -11,7 +11,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icone" />
+        android:src="@mipmap/splash"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
 
     <ProgressBar
         android:layout_marginTop="30dp"

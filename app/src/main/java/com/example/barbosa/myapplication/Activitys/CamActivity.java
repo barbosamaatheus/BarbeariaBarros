@@ -20,6 +20,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CamActivity extends AppCompatActivity {
-    
+
     private Toolbar myToolbar;
     private TextView mPontos, mTextEntrada;
     private Button btnScan, btnTroca;
@@ -71,11 +72,14 @@ public class CamActivity extends AppCompatActivity {
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 IntentIntegrator integrator = new IntentIntegrator(activity);
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
                 integrator.setPrompt("Camera Scan");
                 integrator.setCameraId(0);
                 integrator.initiateScan();
+
+
             }
         });
 
@@ -85,7 +89,7 @@ public class CamActivity extends AppCompatActivity {
                 cliente = dataSnapshot.getValue(Cliente.class);
                 pontos = Integer.parseInt(cliente.getPontos());
                 mPontos.setText(cliente.getPontos());
-                mTextEntrada.setText("Olá "+cliente.getNome()+", voce póssui:");
+                mTextEntrada.setText("Olá " + cliente.getNome() + ", voce póssui:");
 
             }
 
@@ -94,13 +98,17 @@ public class CamActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
-    protected void initViews(){
+
+    protected void initViews() {
         mPontos = (TextView) findViewById(R.id.pontos);
         mTextEntrada = (TextView) findViewById(R.id.text_entrada);
         btnScan = (Button) findViewById(R.id.escaniar);
         btnTroca = (Button) findViewById(R.id.trocar);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -108,7 +116,7 @@ public class CamActivity extends AppCompatActivity {
             if (result.getContents() != null) {
                 Map<String, Object> hopperUpdates = new HashMap<String, Object>();
                 int newPontos = pontos + 1;
-                hopperUpdates.put("pontos", newPontos+"");
+                hopperUpdates.put("pontos", newPontos + "");
                 ref.updateChildren(hopperUpdates);
                 alert(result.getContents());
             } else {
@@ -123,11 +131,12 @@ public class CamActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             intent = new Intent(getApplicationContext(), MainActivity.class);
 
         }
@@ -136,5 +145,17 @@ public class CamActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean verifyUserLogged() {
+        boolean logado;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            logado = true;
 
+        } else {
+            // No user is signed in
+            logado = false;
+        }
+        return logado;
+    }
 }

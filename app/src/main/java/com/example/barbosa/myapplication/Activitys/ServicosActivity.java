@@ -105,29 +105,29 @@ public class ServicosActivity extends AppCompatActivity implements RecyclerViewO
     public List<Servico> criarLista() {
         List<Servico> lista = new ArrayList<Servico>();
         // -->> Combos
-        Servico combo1 = new Servico("Combo 1", "Corte e Barba", "40,00", "10");
+        Servico combo1 = new Servico("Combo 1", "Corte e Barba", "40,00", "21");
         Servico combo2 = new Servico("Combo 2", "Corte, hidratação e selagem" +
-                " (preço pode variar de acordo o tamanho do cabelo)", "60,00", "1");
+                " (preço pode variar de acordo o tamanho do cabelo)", "60,00", "31");
 
         // -->> Cabelo
-        Servico lavagem = new Servico("Lavagem", "Cabelo", "5,00", "1");
-        Servico acabamento = new Servico("Acabamento", "Cabelo", "10,00", "1");
-        Servico hidratacao = new Servico("Hidratação", "Cabelo", "12,00", "1");
-        Servico corte = new Servico("Corte", "Cabelo", "25,00", "1");
-        Servico corteM = new Servico("Corte Maquina", "Cabelo", "20,00", "1");
+        Servico lavagem = new Servico("Lavagem", "Cabelo", "5,00", "3");
+        Servico acabamento = new Servico("Acabamento", "Cabelo", "10,00", "6");
+        Servico hidratacao = new Servico("Hidratação", "Cabelo", "12,00", "7");
+        Servico corte = new Servico("Corte", "Cabelo", "25,00", "14");
+        Servico corteM = new Servico("Corte Maquina", "Cabelo", "20,00", "11");
         Servico selagem = new Servico("Selagem", "Cabelo, preço pode variar de " +
-                "acordo o tamanho do cabelo", "40,00", "1");
-        Servico corteA = new Servico("Corte Agendado", "Cabelo", "35,00", "1");
+                "acordo o tamanho do cabelo", "40,00", "21");
+        Servico corteA = new Servico("Corte Agendado", "Cabelo", "35,00", "19");
 
         // -->> Barba
-        Servico tonalização = new Servico("Tonalização", "Barba", "15,00", "1");
-        Servico barba = new Servico("Barba Pura", "Barba", "20,00", "1");
-        Servico designBarba = new Servico("Design de Barba", "Barba", "25,00", "1");
-        Servico barbaA = new Servico("Barba Agendada", "Barba", "30,00", "1");
+        Servico tonalização = new Servico("Tonalização", "Barba", "15,00", "9");
+        Servico barba = new Servico("Barba Pura", "Barba", "20,00", "11");
+        Servico designBarba = new Servico("Design de Barba", "Barba", "25,00", "14");
+        Servico barbaA = new Servico("Barba Agendada", "Barba", "30,00", "16");
 
         // -->> Produtos
-        Servico pMate = new Servico("Pomada Modeladora", " AC Cosmeticos, Efeito Mate", "25,90", "1");
-        Servico pTeia = new Servico("Pomada Modeladora", " AC Cosmeticos, Efeito Teia", "27,90", "1");
+        Servico pMate = new Servico("Pomada Modeladora", " AC Cosmeticos, Efeito Mate", "25,90", "15");
+        Servico pTeia = new Servico("Pomada Modeladora", " AC Cosmeticos, Efeito Teia", "27,90", "16");
 
         // -->> Inserir na lista
         lista.add(combo1);

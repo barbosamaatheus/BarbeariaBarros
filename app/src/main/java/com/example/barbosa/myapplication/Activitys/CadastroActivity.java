@@ -39,7 +39,7 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         myToolbar = (Toolbar) findViewById(R.id.tb_cadastro);
-        myToolbar.setTitle("");
+        myToolbar.setTitle("Cadastro");
         setSupportActionBar(myToolbar);
 
         initViews();
@@ -68,7 +68,7 @@ public class CadastroActivity extends AppCompatActivity {
         cliente.setEmail(mEmail.getText().toString());
         cliente.setTelefone(mTelefone.getText().toString());
         cliente.setSenha(mSenha.getText().toString());
-        cliente.setPontos("2");
+        cliente.setPontos("0");
     }
 
     protected void initViews() {
@@ -149,7 +149,7 @@ public class CadastroActivity extends AppCompatActivity {
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference reference = database.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
                             reference.child("codigo").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                            reference.child("nome").setValue(cliente.getNome());
+                            reference.child("nome").setValue(cliente.getNome().toUpperCase());
                             reference.child("email").setValue(cliente.getEmail());
                             reference.child("telefone").setValue(cliente.getTelefone());
                             reference.child("pontos").setValue(cliente.getPontos());

@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "meulog";
     private Toolbar myToolbar;
-    private Button btn_entrar, btn_cadastro;
+    private Button btn_entrar, btn_cadastro, btn_visita;
     private EditText mEmail, mSenha;
     private int Pontos;
     private FirebaseDatabase database;
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         myToolbar = (Toolbar) findViewById(R.id.tb_login);
-        myToolbar.setTitle("");
+        myToolbar.setTitle("Entrar");
         setSupportActionBar(myToolbar);
 
         initViews();

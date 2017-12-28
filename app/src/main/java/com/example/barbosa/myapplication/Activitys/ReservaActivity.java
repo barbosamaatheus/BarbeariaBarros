@@ -1,19 +1,27 @@
 package com.example.barbosa.myapplication.Activitys;
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaCas;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,6 +29,7 @@ import android.widget.Toast;
 import com.example.barbosa.myapplication.Objetos.Cliente;
 import com.example.barbosa.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,6 +41,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -51,12 +61,15 @@ public class ReservaActivity extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
     private Cliente cliente;
+    private Spinner spinner;
     private TextView text;
     private MaterialCalendarView mCalendario;
     private Button btn_time, btn_reservar, btn_horario;
     private Toolbar myToolbar;
+    private ProgressBar progressBar;
     Session session;
-    String email, senha;
+    private String email, senha, servico;
+    private String[] lista;
 
 
     @Override
@@ -64,18 +77,35 @@ public class ReservaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva);
 
+        lista = new String[]{"Selecione o serviço", "Combo 1", "Combo 2", "Lavagem", "Acabamento", "Hidratação", "Corte",
+                "Corte Maquina", "Selagem", "Corte Agendado", "Tonalização de Barba", "Barba Pura", "Design de Barba", "Barba Agendada",
+                "Pomada Modeladora (MATE)", "Pomada Modeladora (TEIA)"};
+        spinner = (Spinner) findViewById(R.id.planets_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,
+                lista);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                servico = spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         myToolbar = (Toolbar) findViewById(R.id.tb_main);
         myToolbar.setTitle("Marcar Reserva");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        text = (TextView) findViewById(R.id.txt_TextDateTime);
 
-        btn_horario = (Button) findViewById(R.id.btn_hotarios);
-        btn_time = (Button) findViewById(R.id.btn_timePicker);
-        btn_reservar = (Button) findViewById(R.id.btn_reservar);
-        mCalendario = (MaterialCalendarView) findViewById(R.id.calendarView);
+        initViews();
+
         mCalendario.state().edit()
                 .setFirstDayOfWeek(Calendar.WEDNESDAY)
                 .setMinimumDate(CalendarDay.from(Calendar.getInstance()))
@@ -97,7 +127,15 @@ public class ReservaActivity extends AppCompatActivity {
         btn_reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendEmail();
+                if (servico.equalsIgnoreCase("Selecione o serviço")) {
+                    Snackbar snackbar = Snackbar
+                            .make(progressBar, "Selecione o serviço", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                } else {
+                    sendEmail();
+                }
+
+
             }
         });
         btn_horario.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +159,15 @@ public class ReservaActivity extends AppCompatActivity {
         });
     }
 
+    private void initViews() {
+        text = (TextView) findViewById(R.id.txt_TextDateTime);
+        btn_horario = (Button) findViewById(R.id.btn_hotarios);
+        btn_time = (Button) findViewById(R.id.btn_timePicker);
+        btn_reservar = (Button) findViewById(R.id.btn_reservar);
+        mCalendario = (MaterialCalendarView) findViewById(R.id.calendarView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_res);
+    }
+
     private void updateDate() {
         CalendarDay data = mCalendario.getSelectedDate();
 
@@ -140,13 +187,52 @@ public class ReservaActivity extends AppCompatActivity {
             dateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             dateTime.set(Calendar.MINUTE, minute);
             updateTextLabel();
+
         }
     };
 
     private void updateTextLabel() {
-
+        verificarDados();
         text.setText(formatDateTime.format(dateTime.getTime()));
 
+    }
+
+    private void verificarDados() {
+
+        boolean exibir = false;
+
+
+        if (dateTime.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            showSnackBar();
+            exibir = true;
+        }
+        if (dateTime.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+            if (dateTime.get(Calendar.HOUR_OF_DAY) <= 10 || dateTime.get(Calendar.HOUR_OF_DAY) >= 18) {
+                showSnackBar();
+                exibir = true;
+            }
+        }
+        if (dateTime.get(Calendar.HOUR_OF_DAY) < 10 || dateTime.get(Calendar.HOUR_OF_DAY) >= 19) {
+            showSnackBar();
+            exibir = true;
+        }
+
+        if (exibir) {//com a variável auxiliar atribuida valor booleano true, exibir a menssagem na tela
+
+            btn_reservar.setEnabled(false);
+        } else {
+            btn_reservar.setEnabled(true);
+
+
+        }
+
+    }
+
+    private void showSnackBar() {
+
+        Snackbar snackbar = Snackbar
+                .make(progressBar, "Fora do horario de atendimento", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     public void getHorarios() {
@@ -157,7 +243,9 @@ public class ReservaActivity extends AppCompatActivity {
     }
 
     private void sendEmail() {
+        progressBar.setVisibility(View.VISIBLE);
         email = "matheustdd@gmail.com";
+        senha = "soberano633";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Properties properties = new Properties();
@@ -183,11 +271,14 @@ public class ReservaActivity extends AppCompatActivity {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
                 message.setContent("UMA NOVA RESERVA FOI SOLICITADA"
                         + " --> " + "Data e horario: " + text.getText().toString()
+                        + " --> " + "Serviço: " + servico.toString()
                         + " --> " + "Nome: " + cliente.getNome()
                         + " --> " + "Telefone: " + cliente.getTelefone()
                         + " --> " + "Email: " + cliente.getEmail(), "text/html; charset=utf-8");
                 Transport.send(message);
 
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(ReservaActivity.this, "Reserva Enviada, Aguarde Confirmação em breve", Toast.LENGTH_LONG).show();
 
             }
         } catch (AddressException e) {
@@ -195,9 +286,6 @@ public class ReservaActivity extends AppCompatActivity {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
-        Toast.makeText(ReservaActivity.this, "Reserva Enviada, Aguarde Confirmação em breve", Toast.LENGTH_SHORT).show();
-
 
     }
 
@@ -214,11 +302,12 @@ public class ReservaActivity extends AppCompatActivity {
         intent.setType("message/rfc822");
         startActivity(Intent.createChooser(intent, "Select Email app"));
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = null;
         int id = item.getItemId();
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
             intent = new Intent(getApplicationContext(), MainActivity.class);
 
         }
@@ -228,6 +317,19 @@ public class ReservaActivity extends AppCompatActivity {
 
     }
 
+    private boolean verifyUserLogged() {
+        boolean logado;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            logado = true;
+
+        } else {
+            // No user is signed in
+            logado = false;
+        }
+        return logado;
+    }
 
 }
 

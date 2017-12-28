@@ -13,9 +13,10 @@
         android:layout_height='wrap_content'
         android:background="@color/colorPrimary"
         android:minHeight='?attr/actionBarSize'
-        app:titleTextColor="@android:color/white"
-        app:theme="@style/Theme.MyThemeTB">
-    </android.support.v7.widget.Toolbar>
+        app:theme="@style/Theme.MyThemeTB"
+        app:titleTextColor="@android:color/white" />
+    />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,7 +26,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical">
+
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/calendarView"
@@ -33,8 +36,16 @@
                 android:layout_height="wrap_content"
                 app:mcv_selectionColor="@color/colorAccent" />
 
+
         </LinearLayout>
     </ScrollView>
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@+id/btn_timePicker"
+        android:background="@color/colorAccentt" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,27 +58,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:background="@color/colorAccent"
             android:text="Marcar Hora" />
+
 
         <Button
             android:id="@+id/btn_hotarios"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorAccent"
             android:text="Horarios" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom">
+        android:layout_height="26dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/edit_text_shape"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/planets_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:theme="@style/Theme.MyThemeTB" />
+    </LinearLayout>
+
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@+id/btn_timePicker"
+        android:background="@color/colorAccentt" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+        <ProgressBar
+            android:id="@+id/progressBar_res"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="gone"
+            />
 
         <include
             android:id="@+id/inc_tb_bottom"
             layout="@layout/toolbar_bottom_reserva" />
+
 
     </LinearLayout>
 
